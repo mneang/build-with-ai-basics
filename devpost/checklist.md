@@ -45,17 +45,17 @@ status: approved
 
 ## Final Review
 
-- [ ] Final review complete — feedback resolved and learner confirms ready to ship
+- [x] Final review complete — feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map
 
-- [ ] One action followed through 2–3 actual code locations with the learner
-- [ ] One optional incidental edit offered — record tried/kept/reverted/declined
-- [ ] `devpost/app-map.html` generated from finished code, checked, and shown
+- [x] One action followed through 2–3 actual code locations with the learner
+- [x] One optional incidental edit offered — learner declined the cosmetic eyebrow-text change
+- [x] `devpost/app-map.html` generated from finished code, checked, and shown
 
-Route and stops: [action, real paths and symbols; completed stops if interrupted]
-Edit outcome: [what happened, including declined; verification if changed]
-Tour mode: [live app and editor, or explicit static fallback and why]
+Route and stops: Submit change in `app/page.tsx > handleSubmit` -> `app/api/generate/route.ts > POST` -> `lib/gemini.ts > generateScenarios` -> scenario list rendering in `app/page.tsx`.
+Edit outcome: Optional `UAT WORKBENCH` eyebrow-text edit was offered and declined; no incidental code change was made.
+Tour mode: Live app and editor walkthrough completed by the learner.
 
 ## Revisions
 

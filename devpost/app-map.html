@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UAT Scenario Generator | App Map</title>
+  <style>
+    :root { color-scheme: light; --ink: #14253d; --muted: #5e718b; --line: #dbe5ef; --blue: #1769aa; --soft: #eaf4fc; --paper: #f7fafc; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font: 16px/1.55 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { width: min(920px, calc(100% - 32px)); margin: 0 auto; padding: 56px 0 80px; }
+    .eyebrow { margin: 0 0 8px; color: var(--blue); font-size: .72rem; font-weight: 800; letter-spacing: .12em; }
+    h1, h2, h3 { line-height: 1.15; }
+    h1 { margin: 0 0 12px; font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: -.04em; }
+    h2 { margin: 0 0 14px; font-size: 1.35rem; }
+    h3 { margin: 0 0 8px; font-size: 1rem; }
+    p { margin: 0 0 14px; }
+    .muted { color: var(--muted); }
+    section { margin-top: 42px; }
+    .diagram { display: grid; gap: 12px; grid-template-columns: repeat(3, 1fr); align-items: center; margin-top: 20px; }
+    .node { padding: 18px; border: 1px solid var(--line); border-radius: 9px; background: #fff; text-align: center; box-shadow: 0 5px 16px rgba(20,37,61,.05); }
+    .arrow { color: var(--blue); font-size: 1.4rem; text-align: center; }
+    .stops, .pointers { display: grid; gap: 12px; }
+    .stop, .pointer { padding: 18px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
+    code { padding: 2px 5px; border-radius: 4px; background: var(--soft); color: #104d7d; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; }
+    pre { overflow-x: auto; padding: 14px; border-radius: 7px; background: #14253d; color: #edf6ff; }
+    .meta { color: var(--muted); font-size: .9rem; }
+    details { padding: 14px 0; border-top: 1px solid var(--line); }
+    summary { cursor: pointer; font-weight: 700; }
+    @media (max-width: 680px) { .diagram { grid-template-columns: 1fr; } .arrow { transform: rotate(90deg); } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">FIVE-MINUTE CODE TOUR</p>
+      <h1>UAT Scenario Generator</h1>
+      <p class="muted">A plain-language change travels from the page to one server route, through Gemini and Zod validation, and back as readable scenario cards.</p>
+      <p class="meta">Map snapshot: commit <code>de62541</code>. It is intentionally a lightweight guide and may drift after future code changes.</p>
+    </header>
+
+    <section aria-labelledby="overview">
+      <h2 id="overview">The route in one picture</h2>
+      <div class="diagram" aria-label="User action flows from the page to the API route and then to scenario cards">
+        <div class="node"><strong>1. Page</strong><br>Enter a change and submit</div>
+        <div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="node"><strong>2. API route</strong><br>Validate, call Gemini, validate again</div>
+        <div class="arrow" aria-hidden="true">&#8594;</div>
+        <div class="node"><strong>3. Results</strong><br>Render the latest scenario cards</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="tour-stops">
+      <h2 id="tour-stops">Tour stops</h2>
+      <div class="stops">
+        <article class="stop">
+          <h3>1. Start at the user action</h3>
+          <p><code>app/page.tsx</code> &middot; <code>handleSubmit</code></p>
+          <p class="muted">This function rejects empty input, switches on the loading state, sends <code>{"change": "..."}</code> to the route, and stores the latest returned scenarios in browser memory.</p>
+        </article>
+        <article class="stop">
+          <h3>2. Follow the server boundary</h3>
+          <p><code>app/api/generate/route.ts</code> &middot; <code>POST</code></p>
+          <p class="muted">The route validates the request with the shared schema, calls the model helper, validates the complete response, and returns either <code>{"scenarios": [...]}</code> or a simple error.</p>
+        </article>
+        <article class="stop">
+          <h3>3. See the model contract and output</h3>
+          <p><code>lib/gemini.ts</code> &middot; <code>generateScenarios</code>; then <code>app/page.tsx</code> &middot; scenario list</p>
+          <p class="muted">Gemini receives the structured-output schema and the instruction not to invent unsupported product details. The page renders required fields, optional preconditions, and one visual list number per step.</p>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="change-pointers">
+      <h2 id="change-pointers">To change this, start here</h2>
+      <div class="pointers">
+        <div class="pointer"><strong>Change the page copy, card layout, or step display:</strong> start in <code>app/page.tsx</code> and <code>app/globals.css</code>.</div>
+        <div class="pointer"><strong>Change required scenario fields or count:</strong> update <code>lib/schemas.ts</code>, then keep the Gemini schema in <code>lib/gemini.ts</code> aligned.</div>
+        <div class="pointer"><strong>Change generation guidance or model selection:</strong> update <code>lib/gemini.ts</code> or the local <code>GEMINI_MODEL</code> value in <code>.env.local</code>.</div>
+        <div class="pointer"><strong>Change the API error contract:</strong> start in <code>app/api/generate/route.ts</code> and update the page's error handling with it.</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="run">
+      <h2 id="run">Run it again</h2>
+      <pre><code>npm install
+cp .env.example .env.local
+# add GEMINI_API_KEY to .env.local
+npm run dev</code></pre>
+      <p class="muted">Open the forwarded Codespaces port, normally <code>http://localhost:3000</code>. The map works offline and has no scripts, framework, CDN, analytics, or secrets.</p>
+    </section>
+
+    <section aria-labelledby="details">
+      <h2 id="details">A few useful details</h2>
+      <details>
+        <summary>Where validation lives</summary>
+        <p class="muted">Request and response validation are defined in <code>lib/schemas.ts</code>. The route uses <code>safeParse</code> so malformed model output never becomes partial UI.</p>
+      </details>
+      <details>
+        <summary>What is deliberately not here</summary>
+        <p class="muted">There is no database, authentication, saved history, collaboration, platform integration, or deployment configuration. The project is sized for a local proof of concept.</p>
+      </details>
+    </section>
+  </main>
+</body>
+</html>
