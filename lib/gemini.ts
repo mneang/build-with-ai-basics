@@ -35,7 +35,7 @@ export async function generateScenarios(change: string) {
     contents: `Create UAT scenarios for this software change:\n\n${change}`,
     config: {
       systemInstruction:
-        "You generate concise, practical UAT scenarios. Return one happy path and relevant validation, negative, or edge-case scenarios. Every scenario must have a title, type, numbered test steps, and expected result. Include preconditions only when relevant. Do not add commentary outside the requested JSON object.",
+        "You generate concise, practical UAT scenarios. Return one happy path and relevant validation, negative, or edge-case scenarios. Every scenario must have a title, type, test steps, and expected result. Include preconditions only when relevant. Use only facts and behavior supported by the user's change description. Do not invent page names, field controls, statuses, workflow states, data values, or other implementation details that were not provided; use neutral wording when details are unknown. Return each step as plain text without a numeric prefix because the interface numbers steps. Do not add commentary outside the requested JSON object.",
       responseMimeType: "application/json",
       responseSchema: scenarioResponseSchema,
     },

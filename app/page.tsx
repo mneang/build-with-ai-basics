@@ -94,7 +94,9 @@ export default function Home() {
                 <div className="detail-block">
                   <h4>Test steps</h4>
                   <ol>
-                    {scenario.steps.map((step) => <li key={step}>{step}</li>)}
+                    {scenario.steps.map((step) => (
+                      <li key={step}>{step.replace(/^\s*\d+[.)]\s*/, "")}</li>
+                    ))}
                   </ol>
                 </div>
                 <div className="expected-result">

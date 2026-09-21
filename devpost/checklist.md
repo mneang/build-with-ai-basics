@@ -60,3 +60,4 @@ Tour mode: [live app and editor, or explicit static fallback and why]
 ## Revisions
 
 - Gemini rejected the initially selected `gemini-2.5-flash` model for the configured account; the model is now configurable through `GEMINI_MODEL` and defaults to the provider-recommended `gemini-3.6-flash`.
+- Learner feedback found double-numbered steps and unsupported product-specific assumptions in generated scenarios; the UI now removes model numbering and the generation instruction requires neutral wording when the input does not provide implementation details.
