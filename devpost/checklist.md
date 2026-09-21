@@ -39,9 +39,9 @@ status: approved
 
 ## Hands-on Checkpoints
 
-- [ ] First usable behavior explored — after slice 1
-- [ ] Integrated core journey tried — after slice 2
-- [ ] Final kick-the-tires exploration and feedback completed — after slice 3
+- [x] First usable behavior explored — after slice 1
+- [x] Integrated core journey tried — after slice 2
+- [x] Final kick-the-tires exploration and feedback completed — after slice 3
 
 ## Final Review
 
