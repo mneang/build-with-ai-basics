@@ -7,7 +7,7 @@ status: approved
 
 ## Slices
 
-- [ ] **1. Generate structured scenarios from a software change**
+- [x] **1. Generate structured scenarios from a software change**
   Becomes usable: A local Next.js app runs in Codespaces; a user can enter a software change, submit it, and receive validated structured scenario cards from Gemini.
   Why now: This is the core kernel and the highest-risk dependency. It combines project bootstrapping, the server-side model call, the Zod response contract, and a minimal visible path so we discover API assumptions early.
   PRD ref: `prd.md > The Core Journey`, `prd.md > Generate structured scenarios`
