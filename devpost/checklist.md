@@ -27,7 +27,7 @@ status: approved
   Learner check: Try an empty submission, a normal generation, an edited second generation, and a retry after an error. Report anything confusing or visually out of place.
   Commit: `Polish UAT generation states`
 
-- [ ] **3. Make the Codespaces handoff clear**
+- [x] **3. Make the Codespaces handoff clear**
   Becomes usable: A public-repository reader can understand the setup, configure the API key safely, run the app locally, and verify the core journey.
   Why now: The working prototype needs a clean, reproducible local handoff, and documentation is easiest to write against the finished behavior.
   PRD ref: `prd.md > What We're Building`, `prd.md > Non-Goals`
