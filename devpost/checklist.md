@@ -17,7 +17,7 @@ status: approved
   Learner check: Open the local app, enter “Require a reason when a user cancels an order.”, generate scenarios, and report whether the returned cards demonstrate the structured UAT idea.
   Commit: `Build core UAT scenario generation`
 
-- [ ] **2. Make the core journey predictable**
+- [x] **2. Make the core journey predictable**
   Becomes usable: The page clearly handles first use, empty input, loading, successful repeat generation, and recoverable generation errors while preserving the user's input.
   Why now: Once the kernel works, these are the product behaviors that make the prototype understandable and reliable during a real local demo.
   PRD ref: `prd.md > Screens and Layout`, `prd.md > States and Boundaries`

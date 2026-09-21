@@ -6,17 +6,19 @@ import type { Scenario } from "@/lib/schemas";
 export default function Home() {
   const [change, setChange] = useState("");
   const [scenarios, setScenarios] = useState<Scenario[]>([]);
-  const [error, setError] = useState("");
+  const [inputError, setInputError] = useState("");
+  const [generationError, setGenerationError] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!change.trim()) {
-      setError("Please describe a software change or feature first.");
+      setInputError("Please describe a software change or feature first.");
       return;
     }
 
-    setError("");
+    setInputError("");
+    setGenerationError("");
     setIsGenerating(true);
 
     try {
@@ -33,7 +35,7 @@ export default function Home() {
 
       setScenarios(data.scenarios);
     } catch {
-      setError("We couldn't generate scenarios right now. Please try again.");
+      setGenerationError("We couldn't generate scenarios right now. Please try again.");
     } finally {
       setIsGenerating(false);
     }
@@ -54,11 +56,15 @@ export default function Home() {
         <textarea
           id="change"
           value={change}
-          onChange={(event) => setChange(event.target.value)}
+          onChange={(event) => {
+            setChange(event.target.value);
+            setInputError("");
+            setGenerationError("");
+          }}
           placeholder="Describe the software change or feature you want to test..."
           rows={6}
         />
-        {error && <p className="inline-error" role="alert">{error}</p>}
+        {inputError && <p className="inline-error" role="alert">{inputError}</p>}
         <button type="submit" disabled={isGenerating}>
           {isGenerating ? "Generating..." : "Generate UAT Scenarios"}
         </button>
@@ -72,7 +78,9 @@ export default function Home() {
           <p className="eyebrow">GENERATED COVERAGE</p>
           <h2>Your UAT scenarios</h2>
         </div>
-        {scenarios.length === 0 ? (
+        {generationError ? (
+          <p className="generation-error" role="alert">{generationError}</p>
+        ) : scenarios.length === 0 ? (
           <p className="empty-state">Your generated scenarios will appear here.</p>
         ) : (
           <div className="scenario-list">

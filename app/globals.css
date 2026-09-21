@@ -32,6 +32,7 @@ button:disabled { cursor: wait; opacity: 0.65; }
 .example { margin: 14px 0 0; color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
 .example span { color: var(--ink); font-weight: 700; }
 .inline-error { margin: 12px 0 0; color: #b42318; font-size: 0.9rem; }
+.generation-error { margin: 20px 0 0; padding: 16px; border: 1px solid #f0b8b4; border-radius: 8px; color: #8f1d16; background: #fff7f6; line-height: 1.5; }
 .results { margin-top: 64px; }
 .section-heading { padding-bottom: 18px; border-bottom: 1px solid var(--line); }
 .empty-state { padding: 28px 0; color: var(--muted); }
