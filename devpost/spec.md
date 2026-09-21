@@ -204,9 +204,10 @@ The `devpost/` planning directory remains alongside the application files and is
 
 ```text
 GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-3.6-flash
 ```
 
-It must never contain a real API key. The real value belongs in the local, ignored `.env.local` file.
+It must never contain a real API key. The real values belong in the local, ignored `.env.local` file. `GEMINI_MODEL` can be changed there if the provider makes a different current model available to the account.
 
 ## External Services and Dependencies
 
@@ -252,7 +253,7 @@ No database, authentication provider, hosting platform, or other external servic
 
 ### Open Issues
 
-- Verify the current official Gemini SDK package, model identifier, structured-output API, and free-tier limits during the first build step.
+- Verify the current official Gemini SDK package, structured-output API, and free-tier limits during the first build step. The first live request showed that `gemini-2.5-flash` was unavailable to this account, so the default is now `gemini-3.6-flash` and can be overridden with `GEMINI_MODEL`.
 - Confirm the exact Next.js and Node.js versions supported in the Codespaces environment.
 - Decide the precise error status mapping during implementation while preserving the simple public error shape.
 

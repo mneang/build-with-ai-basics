@@ -58,3 +58,5 @@ Edit outcome: [what happened, including declined; verification if changed]
 Tour mode: [live app and editor, or explicit static fallback and why]
 
 ## Revisions
+
+- Gemini rejected the initially selected `gemini-2.5-flash` model for the configured account; the model is now configurable through `GEMINI_MODEL` and defaults to the provider-recommended `gemini-3.6-flash`.

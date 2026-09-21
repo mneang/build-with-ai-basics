@@ -31,7 +31,7 @@ export async function generateScenarios(change: string) {
 
   const ai = new GoogleGenAI({ apiKey });
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-flash",
+    model: process.env.GEMINI_MODEL ?? "gemini-3.6-flash",
     contents: `Create UAT scenarios for this software change:\n\n${change}`,
     config: {
       systemInstruction:
